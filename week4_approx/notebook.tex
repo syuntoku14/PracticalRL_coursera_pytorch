@@ -1,0 +1,1937 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{dqn\_atari}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{deep-q-network-implementation}{%
+\section{Deep Q-Network
+implementation}\label{deep-q-network-implementation}}
+
+This notebook shamelessly demands you to implement a DQN - an
+approximate q-learning algorithm with experience replay and target
+networks - and see if it works any better this way.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}XVFB will be launched if you run on a server}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DISPLAY}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n+nb}{str} \PY{o+ow}{or} \PY{n+nb}{len}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DISPLAY}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+             \PY{o}{!}bash ../xvfb start
+             \PY{o}{\PYZpc{}}\PY{k}{env} DISPLAY=:1
+\end{Verbatim}
+
+
+    \textbf{Frameworks} - we'll accept this homework in any deep learning
+framework. This particular notebook was designed for tensorflow, but you
+will find it easy to adapt it to almost any python-based deep learning
+framework.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{gym}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{pickle}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{import} \PY{n+nn}{torch}
+         \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+         \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{optim} \PY{k}{as} \PY{n+nn}{optim}
+         \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{functional} \PY{k}{as} \PY{n+nn}{F}
+         \PY{k+kn}{import} \PY{n+nn}{torchvision}\PY{n+nn}{.}\PY{n+nn}{transforms} \PY{k}{as} \PY{n+nn}{T}
+         \PY{k+kn}{from} \PY{n+nn}{torchsummary} \PY{k}{import} \PY{n}{summary}
+         
+         \PY{n}{device} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cuda}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{torch}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{is\PYZus{}available}\PY{p}{(}\PY{p}{)} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cpu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{lets-play-some-old-videogames}{%
+\subsubsection{Let's play some old
+videogames}\label{lets-play-some-old-videogames}}
+
+\begin{figure}
+\centering
+\includegraphics{https://github.com/yandexdataschool/Practical_RL/blob/master/yet_another_week/_resource/nerd.png?raw=true}
+\caption{img}
+\end{figure}
+
+This time we're gonna apply approximate q-learning to an atari game
+called Breakout. It's not the hardest thing out there, but it's
+definitely way more complex than anything we tried before.
+
+    \hypertarget{processing-game-image}{%
+\subsubsection{Processing game image}\label{processing-game-image}}
+
+Raw atari images are large, 210x160x3 by default. However, we don't need
+that level of detail in order to learn them.
+
+We can thus save a lot of time by preprocessing game image, including *
+Resizing to a smaller shape, 64 x 64 * Converting to grayscale *
+Cropping irrelevant image parts (top \& bottom)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+         \PY{k}{try}\PY{p}{:}
+             \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/syuntoku14/catkin\PYZus{}ws/devel/lib/python2.7/dist\PYZhy{}packages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/opt/ros/kinetic/lib/python2.7/dist\PYZhy{}packages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{except}\PY{p}{:}
+             \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{from} \PY{n+nn}{gym}\PY{n+nn}{.}\PY{n+nn}{core} \PY{k}{import} \PY{n}{ObservationWrapper}
+         \PY{k+kn}{from} \PY{n+nn}{gym}\PY{n+nn}{.}\PY{n+nn}{spaces} \PY{k}{import} \PY{n}{Box}
+         
+         \PY{c+c1}{\PYZsh{} from scipy.misc import imresize}
+         \PY{k+kn}{import} \PY{n+nn}{cv2}
+         
+         \PY{k}{class} \PY{n+nc}{PreprocessAtari}\PY{p}{(}\PY{n}{ObservationWrapper}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{env}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}A gym wrapper that crops, scales image into the desired shapes and optionally grayscales it.\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{ObservationWrapper}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{env}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{img\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{84}\PY{p}{,} \PY{l+m+mi}{84}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{observation\PYZus{}space} \PY{o}{=} \PY{n}{Box}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{img\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{img\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{\PYZus{}observation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{img}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{img} \PY{o}{=} \PY{n}{img}\PY{p}{[}\PY{l+m+mi}{34}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+                 \PY{n}{img} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{img\PYZus{}size}\PY{p}{)}
+                 \PY{n}{img} \PY{o}{=} \PY{n}{img}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}  \PY{c+c1}{\PYZsh{} grayscale}
+                 \PY{n}{img} \PY{o}{=} \PY{n}{img}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{255.}
+                        
+                 \PY{k}{return} \PY{n}{img}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{import} \PY{n+nn}{gym}
+         \PY{c+c1}{\PYZsh{}spawn game instance for tests\PYZsh{}spawn  }
+         \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BreakoutDeterministic\PYZhy{}v0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}create raw env}
+         \PY{n}{env} \PY{o}{=} \PY{n}{PreprocessAtari}\PY{p}{(}\PY{n}{env}\PY{p}{)}
+         
+         \PY{n}{observation\PYZus{}shape} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{n\PYZus{}actions} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{n}
+         
+         \PY{n}{obs} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{obs}\PY{o}{.}\PY{n}{ndim}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{observation\PYZus{}shape}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(len(obs[:,1,1]))}
+         
+         \PY{c+c1}{\PYZsh{} \PYZsh{} test observation}
+         \PY{k}{assert} \PY{n}{obs}\PY{o}{.}\PY{n}{ndim} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{observation must be [batch, time, channels] even if there}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s just one channel}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{assert} \PY{n}{obs}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{n}{observation\PYZus{}shape}
+         \PY{k}{assert} \PY{n}{obs}\PY{o}{.}\PY{n}{dtype} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{obs}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{your image must not be binary}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{assert} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{obs}\PY{p}{)} \PY{o+ow}{and} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{obs}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{convert image pixels to (0,1) range}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Formal tests seem fine. Here}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s an example of what you}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ll get.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{what your network gonna see}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{obs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-yellow}{WARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.}
+3
+(1, 84, 84)
+Formal tests seem fine. Here's an example of what you'll get.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{frame-buffer}{%
+\subsubsection{Frame buffer}\label{frame-buffer}}
+
+Our agent can only process one observation at a time, so we gotta make
+sure it contains enough information to fing optimal actions. For
+instance, agent has to react to moving objects so he must be able to
+measure object's velocity.
+
+To do so, we introduce a buffer that stores 4 last images. This time
+everything is pre-implemented for you.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{from} \PY{n+nn}{framebuffer} \PY{k}{import} \PY{n}{FrameBuffer}
+         \PY{k}{def} \PY{n+nf}{make\PYZus{}env}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BreakoutDeterministic\PYZhy{}v4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{env} \PY{o}{=} \PY{n}{PreprocessAtari}\PY{p}{(}\PY{n}{env}\PY{p}{)}
+             \PY{n}{env} \PY{o}{=} \PY{n}{FrameBuffer}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{n\PYZus{}frames}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{dim\PYZus{}order}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pytorch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{env}
+         
+         \PY{n}{env} \PY{o}{=} \PY{n}{make\PYZus{}env}\PY{p}{(}\PY{p}{)}
+         \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}
+         \PY{n}{n\PYZus{}actions} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{n}
+         \PY{n}{state\PYZus{}dim} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-yellow}{WARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.}
+\textcolor{ansi-yellow}{WARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+             \PY{n}{obs}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Game image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{render}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rgb\PYZus{}array}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Agent observation (4 frames left to right)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{obs}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{[}\PY{n}{obs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{building-a-network}{%
+\subsubsection{Building a network}\label{building-a-network}}
+
+We now need to build a neural network that can map images to state
+q-values. This network will be called on every agent's step so it better
+not be resnet-152 unless you have an array of GPUs. Instead, you can use
+strided convolutions with a small number of features to save time and
+memory.
+
+You can build any architecture you want, but for reference, here's
+something that will more or less work:
+
+    \begin{figure}
+\centering
+\includegraphics{https://github.com/yandexdataschool/Practical_RL/blob/master/yet_another_week/_resource/dqn_arch.png?raw=true}
+\caption{img}
+\end{figure}
+
+    \hypertarget{make-sure-the-type-and-shape-of-the-return-values}{%
+\section{Make sure the type and shape of the return
+values}\label{make-sure-the-type-and-shape-of-the-return-values}}
+
+\hypertarget{from-the-environment}{%
+\subsection{From the environment}\label{from-the-environment}}
+
+\begin{itemize}
+\tightlist
+\item
+  obs: 4x84x84, ndarray (not 1x4x84x84), float32
+\item
+  reward: fload32
+\item
+  done: bool
+\end{itemize}
+
+\hypertarget{from-agent}{%
+\subsection{From agent}\label{from-agent}}
+
+\begin{itemize}
+\tightlist
+\item
+  get\_qvalues: batchsize x 4, tensor
+\item
+  get\_qvalues\_for\_actions: batchsize, tensor
+\item
+  sample\_actions: batchsize, tensor
+\end{itemize}
+
+\hypertarget{from-experience-replay}{%
+\subsection{From Experience Replay}\label{from-experience-replay}}
+
+\begin{itemize}
+\tightlist
+\item
+  obs\_batch: batch\_size x 4 x 84 x 84, ndarray, float32
+\item
+  action\_batch: {[}batch\_size, {]}, ndarray, int32
+\item
+  reward\_batch: {[}batch\_size, {]}, ndarray, float64
+\item
+  is\_done\_batch: {[}batch\_size, {]}, ndarray, bool
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{class} \PY{n+nc}{DQN}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{n\PYZus{}actions}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{DQN}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} input obs, output n\PYZus{}actions}
+                 \PY{c+c1}{\PYZsh{} The network is based on \PYZdq{}Mnih, 2015\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{stride}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{stride}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv3} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{stride}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{7}\PY{o}{*}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{512}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{n}{n\PYZus{}actions}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv2}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv3}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l1}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{x}
+         
+               
+         \PY{k}{class} \PY{n+nc}{DQNAgent}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state\PYZus{}shape}\PY{p}{,} \PY{n}{n\PYZus{}actions}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{reuse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}A simple DQN agent\PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dqn} \PY{o}{=} \PY{n}{DQN}\PY{p}{(}\PY{n}{n\PYZus{}actions}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epsilon} \PY{o}{=} \PY{n}{epsilon}
+         
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}qvalues}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{states}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}takes agent\PYZsq{}s observation, returns qvalues. \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{qvalues} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dqn}\PY{p}{(}\PY{n}{states}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{qvalues}
+             
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}qvalues\PYZus{}for\PYZus{}actions}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{qvalues}\PY{p}{,} \PY{n}{actions}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{qvalues}\PY{o}{.}\PY{n}{gather}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PYZbs{}
+                         \PY{n}{actions}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}
+            
+             \PY{k}{def} \PY{n+nf}{sample\PYZus{}actions}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{qvalues}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}pick actions given qvalues. Uses epsilon\PYZhy{}greedy exploration strategy. \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{epsilon} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epsilon}
+                 \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{n\PYZus{}actions} \PY{o}{=} \PY{n}{qvalues}\PY{o}{.}\PY{n}{shape}
+                 \PY{n}{random\PYZus{}actions} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{n\PYZus{}actions}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{best\PYZus{}actions} \PY{o}{=} \PY{n}{qvalues}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{should\PYZus{}explore} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{epsilon}\PY{p}{,} \PY{n}{epsilon}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{byte}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{should\PYZus{}explore}\PY{p}{,} \PY{n}{random\PYZus{}actions}\PY{p}{,} \PY{n}{best\PYZus{}actions}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now let's try out our agent to see if it raises any errors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{def} \PY{n+nf}{evaluate}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{n\PYZus{}games}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{greedy}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{t\PYZus{}max}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Plays n\PYZus{}games full games. If greedy, picks actions as argmax(qvalues). Returns mean reward. \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{rewards} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}games}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{s} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{reward} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{t\PYZus{}max}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{s} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                     \PY{n}{qvalues} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{get\PYZus{}qvalues}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+                     \PY{n}{action} \PY{o}{=} \PY{n}{qvalues}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{dim}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{if} \PY{n}{greedy} \PY{k}{else} \PY{n}{agent}\PY{o}{.}\PY{n}{sample\PYZus{}actions}\PY{p}{(}\PY{n}{qvalues}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                     \PY{n}{s}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{done}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                     \PY{n}{reward} \PY{o}{+}\PY{o}{=} \PY{n}{r}
+                     \PY{k}{if} \PY{n}{done}\PY{p}{:} \PY{k}{break}
+                         
+                 \PY{n}{rewards}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{reward}\PY{p}{)}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{rewards}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{evaluate}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{n\PYZus{}games}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 11.0
+\end{Verbatim}
+            
+    \hypertarget{experience-replay}{%
+\subsubsection{Experience replay}\label{experience-replay}}
+
+For this assignment, we provide you with experience replay buffer. If
+you implemented experience replay buffer in last week's assignment, you
+can copy-paste it here \textbf{to get 2 bonus points}.
+
+\begin{figure}
+\centering
+\includegraphics{https://github.com/yandexdataschool/Practical_RL/blob/master/yet_another_week/_resource/exp_replay.png?raw=true}
+\caption{img}
+\end{figure}
+
+    \hypertarget{the-interface-is-fairly-simple}{%
+\paragraph{The interface is fairly
+simple:}\label{the-interface-is-fairly-simple}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{exp\_replay.add(obs,\ act,\ rw,\ next\_obs,\ done)} - saves
+  (s,a,r,s',done) tuple into the buffer
+\item
+  \texttt{exp\_replay.sample(batch\_size)} - returns observations,
+  actions, rewards, next\_observations and is\_done for
+  \texttt{batch\_size} random samples.
+\item
+  \texttt{len(exp\_replay)} - returns number of elements stored in
+  replay buffer.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{replay\PYZus{}buffer} \PY{k}{import} \PY{n}{ReplayBuffer}
+         \PY{n}{exp\PYZus{}replay} \PY{o}{=} \PY{n}{ReplayBuffer}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{:}
+             \PY{n}{exp\PYZus{}replay}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{done}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{obs\PYZus{}batch}\PY{p}{,} \PY{n}{act\PYZus{}batch}\PY{p}{,} \PY{n}{reward\PYZus{}batch}\PY{p}{,} \PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{,} \PY{n}{is\PYZus{}done\PYZus{}batch} \PY{o}{=} \PY{n}{exp\PYZus{}replay}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{exp\PYZus{}replay}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{experience replay size should be 10 because that}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s what maximum capacity is}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k}{def} \PY{n+nf}{play\PYZus{}and\PYZus{}record}\PY{p}{(}\PY{n}{agent}\PY{p}{,} \PY{n}{env}\PY{p}{,} \PY{n}{exp\PYZus{}replay}\PY{p}{,} \PY{n}{n\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Play the game for exactly n steps, record every (s,a,r,s\PYZsq{}, done) to replay buffer. }
+         \PY{l+s+sd}{    Whenever game ends, add record with done=True and reset the game.}
+         \PY{l+s+sd}{    :returns: return sum of rewards over time}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Note: please do not env.reset() unless env is done.}
+         \PY{l+s+sd}{    It is guaranteed that env has done=False when passed to this function.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} Make sure that the state is only one batch state, 4x84x84}
+             \PY{c+c1}{\PYZsh{} State at the beginning of rollout}
+             \PY{n}{s} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{framebuffer}
+             \PY{n}{R} \PY{o}{=} \PY{l+m+mf}{0.0}
+             
+             \PY{c+c1}{\PYZsh{} Play the game for n\PYZus{}steps as per instructions above}
+             \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}steps}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{qvalues} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{get\PYZus{}qvalues}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{action} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{sample\PYZus{}actions}\PY{p}{(}\PY{n}{qvalues}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{next\PYZus{}s}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{done}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                 \PY{n}{exp\PYZus{}replay}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{action}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{next\PYZus{}s}\PY{p}{,} \PY{n}{done}\PY{o}{=}\PY{n}{done}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{done} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                     \PY{n}{s} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{s} \PY{o}{=} \PY{n}{next\PYZus{}s}
+             \PY{k}{return} \PY{n}{R}
+\end{Verbatim}
+
+
+    \hypertarget{target-networks}{%
+\subsubsection{Target networks}\label{target-networks}}
+
+We also employ the so called ``target network'' - a copy of neural
+network weights to be used for reference Q-values:
+
+The network itself is an exact copy of agent network, but it's
+parameters are not trained. Instead, they are moved here from agent's
+actual network every so often.
+
+\[ Q_{reference}(s,a) = r + \gamma \cdot \max _{a'} Q_{target}(s',a') \]
+
+\begin{figure}
+\centering
+\includegraphics{https://github.com/yandexdataschool/Practical_RL/blob/master/yet_another_week/_resource/target_net.png?raw=true}
+\caption{img}
+\end{figure}
+
+    \hypertarget{learning-with-q-learning}{%
+\subsubsection{Learning with\ldots{}
+Q-learning}\label{learning-with-q-learning}}
+
+Here we write a function similar to \texttt{agent.update} from tabular
+q-learning.
+
+    Take q-values for actions agent just took
+
+    Compute Q-learning TD error:
+
+\[ L = { 1 \over N} \sum_i [ Q_{\theta}(s,a) - Q_{reference}(s,a) ] ^2 \]
+
+With Q-reference defined as
+
+\[ Q_{reference}(s,a) = r(s,a) + \gamma \cdot max_{a'} Q_{target}(s', a') \]
+
+Where * \(Q_{target}(s',a')\) denotes q-value of next state and next
+action predicted by \textbf{target\_network} * \(s, a, r, s'\) are
+current state, action, reward and next state respectively * \(\gamma\)
+is a discount factor defined two cells above.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k}{def} \PY{n+nf}{optimize}\PY{p}{(}\PY{n}{current\PYZus{}action\PYZus{}qvalues}\PY{p}{,} \PY{n}{optimizer}\PY{p}{,} \PY{n}{target\PYZus{}dqn}\PY{p}{,} \PYZbs{}
+                      \PY{n}{reward\PYZus{}batch}\PY{p}{,} \PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{,} \PY{n}{is\PYZus{}done\PYZus{}batch}\PY{p}{)}\PY{p}{:}
+             \PY{n}{next\PYZus{}qvalues\PYZus{}target} \PY{o}{=} \PY{n}{target\PYZus{}dqn}\PY{o}{.}\PY{n}{get\PYZus{}qvalues}\PY{p}{(}\PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} compute state values by taking max over next\PYZus{}qvalues\PYZus{}target for all actions}
+             \PY{n}{next\PYZus{}state\PYZus{}values\PYZus{}target} \PY{o}{=} \PY{n}{next\PYZus{}qvalues\PYZus{}target}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{next\PYZus{}state\PYZus{}values\PYZus{}target} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{is\PYZus{}done\PYZus{}batch}\PY{p}{)}\PY{o}{.}\PY{n}{byte}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                                          \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{reward\PYZus{}batch}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                                          \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{next\PYZus{}state\PYZus{}values\PYZus{}target}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} compute Q\PYZus{}reference(s,a) as per formula above.}
+             \PY{n}{reference\PYZus{}qvalues} \PY{o}{=} \PY{n}{reward\PYZus{}batch} \PY{o}{+} \PY{n}{gamma} \PY{o}{*} \PY{n}{next\PYZus{}state\PYZus{}values\PYZus{}target}
+         
+             \PY{c+c1}{\PYZsh{} Define loss function for sgd.}
+             \PY{n}{td\PYZus{}loss} \PY{o}{=} \PY{p}{(}\PY{n}{current\PYZus{}action\PYZus{}qvalues} \PY{o}{\PYZhy{}} \PY{n}{reference\PYZus{}qvalues}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}
+             \PY{n}{td\PYZus{}loss} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{td\PYZus{}loss}\PY{p}{)}
+         
+             \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+             \PY{n}{td\PYZus{}loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+             \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{td\PYZus{}loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k}{def} \PY{n+nf}{convert\PYZus{}to\PYZus{}tensor}\PY{p}{(}\PY{n}{obs\PYZus{}batch}\PY{p}{,} \PY{n}{act\PYZus{}batch}\PY{p}{,} \PY{n}{reward\PYZus{}batch}\PY{p}{,} \PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{,} \PY{n}{is\PYZus{}done\PYZus{}batch}\PY{p}{)}\PY{p}{:}
+             \PY{n}{obs\PYZus{}batch} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{obs\PYZus{}batch}\PY{p}{)}
+             \PY{n}{act\PYZus{}batch} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{act\PYZus{}batch}\PY{p}{)}
+             \PY{n}{reward\PYZus{}batch} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{reward\PYZus{}batch}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}
+             \PY{n}{next\PYZus{}obs\PYZus{}batch} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{)}
+             \PY{n}{is\PYZus{}done\PYZus{}batch} \PY{o}{=} \PY{n}{is\PYZus{}done\PYZus{}batch}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+             \PY{k}{return} \PY{n}{obs\PYZus{}batch}\PY{p}{,} \PY{n}{act\PYZus{}batch}\PY{p}{,} \PY{n}{reward\PYZus{}batch}\PY{p}{,} \PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{,} \PY{n}{is\PYZus{}done\PYZus{}batch}
+         
+         
+         \PY{k}{def} \PY{n+nf}{save\PYZus{}data}\PY{p}{(}\PY{n}{folder\PYZus{}path}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{mean\PYZus{}reward\PYZus{}history}\PY{p}{,} \PY{n}{td\PYZus{}loss\PYZus{}history}\PY{p}{)}\PY{p}{:}
+             \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{state\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{folder\PYZus{}path} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{atari\PYZus{}dqn\PYZus{}state\PYZus{}dict.pt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{folder\PYZus{}path} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}reward\PYZus{}history.l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                 \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{mean\PYZus{}reward\PYZus{}history}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{folder\PYZus{}path} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td\PYZus{}loss\PYZus{}history.l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                 \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{td\PYZus{}loss\PYZus{}history}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+                 
+                 
+         \PY{k}{def} \PY{n+nf}{load\PYZus{}data}\PY{p}{(}\PY{n}{folder\PYZus{}path}\PY{p}{)}\PY{p}{:}
+             \PY{n}{state\PYZus{}dict} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n}{mean\PYZus{}reward\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{td\PYZus{}loss\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{n}{state\PYZus{}dict} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{folder\PYZus{}path} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{atari\PYZus{}dqn\PYZus{}state\PYZus{}dict.pt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{folder\PYZus{}path} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}reward\PYZus{}history.l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                 \PY{n}{mean\PYZus{}reward\PYZus{}history} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{folder\PYZus{}path} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td\PYZus{}loss\PYZus{}history.l}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                 \PY{n}{td\PYZus{}loss\PYZus{}history} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{state\PYZus{}dict}\PY{p}{,} \PY{n}{mean\PYZus{}reward\PYZus{}history}\PY{p}{,} \PY{n}{td\PYZus{}loss\PYZus{}history}
+\end{Verbatim}
+
+
+    \hypertarget{main-loop}{%
+\subsubsection{Main loop}\label{main-loop}}
+
+It's time to put everything together and see if it learns anything.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{trange}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{clear\PYZus{}output}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{DataFrame}
+         \PY{n}{moving\PYZus{}average} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{,} \PY{n}{span}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kw}\PY{p}{:} \PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{x}\PY{o}{.}\PY{n}{ewm}\PY{p}{(}\PY{n}{span}\PY{o}{=}\PY{n}{span}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kw}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{n}{mean\PYZus{}rw\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{td\PYZus{}loss\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{gamma} \PY{o}{=} \PY{l+m+mf}{0.99}
+         \PY{n}{policy\PYZus{}agent} \PY{o}{=} \PY{n}{DQNAgent}\PY{p}{(}\PY{n}{state\PYZus{}dim}\PY{p}{,} \PY{n}{n\PYZus{}actions}\PY{p}{)}
+         \PY{n}{target\PYZus{}agent} \PY{o}{=} \PY{n}{DQNAgent}\PY{p}{(}\PY{n}{state\PYZus{}dim}\PY{p}{,} \PY{n}{n\PYZus{}actions}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{rl\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{state\PYZus{}dict}\PY{p}{,} \PY{n}{mean\PYZus{}rw\PYZus{}history}\PY{p}{,} \PY{n}{td\PYZus{}loss\PYZus{}history} \PY{o}{=} \PY{n}{load\PYZus{}data}\PY{p}{(}\PY{n}{rl\PYZus{}path}\PY{p}{)}
+         \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{load\PYZus{}state\PYZus{}dict}\PY{p}{(}\PY{n}{state\PYZus{}dict}\PY{p}{)}
+         \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+         \PY{n}{target\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{load\PYZus{}state\PYZus{}dict}\PY{p}{(}\PY{n}{state\PYZus{}dict}\PY{p}{)}
+         \PY{n}{target\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} DQN(
+           (conv1): Conv2d(4, 32, kernel\_size=(8, 8), stride=(4, 4))
+           (conv2): Conv2d(32, 64, kernel\_size=(4, 4), stride=(2, 2))
+           (conv3): Conv2d(64, 64, kernel\_size=(3, 3), stride=(1, 1))
+           (l1): Linear(in\_features=3136, out\_features=512, bias=True)
+           (l2): Linear(in\_features=512, out\_features=4, bias=True)
+         )
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{exp\PYZus{}replay} \PY{o}{=} \PY{n}{ReplayBuffer}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{play\PYZus{}and\PYZus{}record}\PY{p}{(}\PY{n}{policy\PYZus{}agent}\PY{p}{,} \PY{n}{env}\PY{p}{,} \PY{n}{exp\PYZus{}replay}\PY{p}{,} \PY{n}{n\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k}{def} \PY{n+nf}{play\PYZus{}and\PYZus{}record}\PY{p}{(}\PY{n}{agent}\PY{p}{,} \PY{n}{env}\PY{p}{,} \PY{n}{exp\PYZus{}replay}\PY{p}{,} \PY{n}{n\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Play the game for exactly n steps, record every (s,a,r,s\PYZsq{}, done) to replay buffer. }
+         \PY{l+s+sd}{    Whenever game ends, add record with done=True and reset the game.}
+         \PY{l+s+sd}{    :returns: return sum of rewards over time}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Note: please do not env.reset() unless env is done.}
+         \PY{l+s+sd}{    It is guaranteed that env has done=False when passed to this function.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} Make sure that the state is only one batch state, 4x84x84}
+             \PY{c+c1}{\PYZsh{} State at the beginning of rollout}
+             \PY{n}{s} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{framebuffer}
+             \PY{n}{R} \PY{o}{=} \PY{l+m+mf}{0.0}
+             
+             \PY{c+c1}{\PYZsh{} Play the game for n\PYZus{}steps as per instructions above}
+             \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}steps}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{qvalues} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{get\PYZus{}qvalues}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{action} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{sample\PYZus{}actions}\PY{p}{(}\PY{n}{qvalues}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                 \PY{n}{next\PYZus{}s}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{done}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                 \PY{n}{exp\PYZus{}replay}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{action}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{next\PYZus{}s}\PY{p}{,} \PY{n}{done}\PY{o}{=}\PY{n}{done}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{done} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                     \PY{n}{s} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{s} \PY{o}{=} \PY{n}{next\PYZus{}s}
+             \PY{k}{return} \PY{n}{R}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{trange}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{4e4}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} play}
+             \PY{n}{play\PYZus{}and\PYZus{}record}\PY{p}{(}\PY{n}{policy\PYZus{}agent}\PY{p}{,} \PY{n}{env}\PY{p}{,} \PY{n}{exp\PYZus{}replay}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} train}
+             \PY{n}{obs\PYZus{}batch}\PY{p}{,} \PY{n}{act\PYZus{}batch}\PY{p}{,} \PY{n}{reward\PYZus{}batch}\PY{p}{,} \PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{,} \PY{n}{is\PYZus{}done\PYZus{}batch} \PY{o}{=} \PYZbs{}
+                              \PY{n}{convert\PYZus{}to\PYZus{}tensor}\PY{p}{(}\PY{o}{*}\PY{n}{exp\PYZus{}replay}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{q\PYZus{}values} \PY{o}{=} \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{get\PYZus{}qvalues}\PY{p}{(}\PY{n}{obs\PYZus{}batch}\PY{p}{)}
+             \PY{n}{current\PYZus{}action\PYZus{}qvalues} \PY{o}{=} \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{get\PYZus{}qvalues\PYZus{}for\PYZus{}actions}\PY{p}{(}\PY{n}{q\PYZus{}values}\PY{p}{,} \PY{n}{act\PYZus{}batch}\PY{p}{)}
+             \PY{n}{loss\PYZus{}t} \PY{o}{=} \PY{n}{optimize}\PY{p}{(}\PY{n}{current\PYZus{}action\PYZus{}qvalues}\PY{p}{,} \PY{n}{optimizer}\PY{p}{,} 
+                               \PY{n}{target\PYZus{}agent}\PY{p}{,} \PY{n}{reward\PYZus{}batch}\PY{p}{,} \PY{n}{next\PYZus{}obs\PYZus{}batch}\PY{p}{,} \PY{n}{is\PYZus{}done\PYZus{}batch}\PY{p}{)}
+             \PY{n}{td\PYZus{}loss\PYZus{}history}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{loss\PYZus{}t}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} adjust agent parameters}
+             \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{500} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{target\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{load\PYZus{}state\PYZus{}dict}\PY{p}{(}\PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{dqn}\PY{o}{.}\PY{n}{state\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{epsilon} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{epsilon} \PY{o}{*} \PY{l+m+mf}{0.99}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{)}
+                 \PY{n}{mean\PYZus{}rw\PYZus{}history}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{evaluate}\PY{p}{(}\PY{n}{make\PYZus{}env}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{policy\PYZus{}agent}\PY{p}{,} \PY{n}{n\PYZus{}games}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{save\PYZus{}data}\PY{p}{(}\PY{n}{rl\PYZus{}path}\PY{p}{,} \PY{n}{policy\PYZus{}agent}\PY{p}{,} \PY{n}{mean\PYZus{}rw\PYZus{}history}\PY{p}{,} \PY{n}{td\PYZus{}loss\PYZus{}history}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{clear\PYZus{}output}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{buffer size = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{, epsilon = }\PY{l+s+si}{\PYZpc{}.5f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{exp\PYZus{}replay}\PY{p}{)}\PY{p}{,} \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{epsilon}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean reward per game}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mean\PYZus{}rw\PYZus{}history}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{loss\PYZus{}t}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TD loss history (moving average)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{moving\PYZus{}average}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{td\PYZus{}loss\PYZus{}history}\PY{p}{)}\PY{p}{,} \PY{n}{span}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+buffer size = 12860, epsilon = 0.01000
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 101/40000 [00:34<4:23:28,  2.52it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 102/40000 [00:35<4:06:56,  2.69it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 103/40000 [00:35<3:42:30,  2.99it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 104/40000 [00:35<3:26:23,  3.22it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 105/40000 [00:36<3:32:41,  3.13it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 106/40000 [00:36<3:23:53,  3.26it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 107/40000 [00:36<3:10:07,  3.50it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 108/40000 [00:37<3:46:27,  2.94it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 109/40000 [00:37<3:31:01,  3.15it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 110/40000 [00:37<3:38:22,  3.04it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 111/40000 [00:38<3:27:12,  3.21it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 112/40000 [00:38<3:43:07,  2.98it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 113/40000 [00:38<3:51:33,  2.87it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 114/40000 [00:39<3:40:34,  3.01it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 115/40000 [00:39<3:49:05,  2.90it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 116/40000 [00:39<3:25:48,  3.23it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 117/40000 [00:39<3:17:38,  3.36it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 118/40000 [00:40<3:03:03,  3.63it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 119/40000 [00:40<2:57:37,  3.74it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 120/40000 [00:40<2:49:22,  3.92it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 121/40000 [00:40<2:45:30,  4.02it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 122/40000 [00:41<2:42:49,  4.08it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 123/40000 [00:41<2:38:50,  4.18it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 124/40000 [00:41<2:46:12,  4.00it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 125/40000 [00:41<2:50:58,  3.89it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 126/40000 [00:42<2:46:07,  4.00it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 127/40000 [00:42<2:42:02,  4.10it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 128/40000 [00:42<2:47:36,  3.96it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 129/40000 [00:42<2:43:51,  4.06it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 130/40000 [00:43<2:50:55,  3.89it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 131/40000 [00:43<2:54:23,  3.81it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 132/40000 [00:43<2:57:10,  3.75it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 133/40000 [00:43<2:51:30,  3.87it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 134/40000 [00:44<2:48:20,  3.95it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 135/40000 [00:44<2:54:07,  3.82it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+  0\%|          | 136/40000 [00:44<2:46:26,  3.99it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-48-c32c507935e9> in <module>
+          2 
+          3     \# play
+    ----> 4     play\_and\_record(policy\_agent, env, exp\_replay, 10)
+          5 
+          6     \# train
+
+
+        <ipython-input-47-277ee09874fb> in play\_and\_record(agent, env, exp\_replay, n\_steps)
+         18         action = agent.sample\_actions(qvalues).item()
+         19         print(action)
+    ---> 20         next\_s, r, done, \_ = env.step(action)
+         21         exp\_replay.add(s, action, r, next\_s, done=done)
+         22         if done == True:
+
+
+        \textasciitilde{}/OneDrive/ai/coursera/Practical\_RL-coursera/week4\_approx/framebuffer.py in step(self, action)
+         26     def step(self, action):
+         27         """plays breakout for 1 step, returns frame buffer"""
+    ---> 28         new\_img, reward, done, info = self.env.step(action)
+         29         self.update\_buffer(new\_img)
+         30         return self.framebuffer, reward, done, info
+
+
+        \textasciitilde{}/.pyenv/versions/anaconda3-5.1.0/envs/marlo/lib/python3.6/site-packages/gym/core.py in step(self, action)
+        302 class ObservationWrapper(Wrapper):
+        303     def step(self, action):
+    --> 304         observation, reward, done, info = self.env.step(action)
+        305         return self.observation(observation), reward, done, info
+        306 
+
+
+        \textasciitilde{}/.pyenv/versions/anaconda3-5.1.0/envs/marlo/lib/python3.6/site-packages/gym/wrappers/time\_limit.py in step(self, action)
+         29     def step(self, action):
+         30         assert self.\_episode\_started\_at is not None, "Cannot call env.step() before calling reset()"
+    ---> 31         observation, reward, done, info = self.env.step(action)
+         32         self.\_elapsed\_steps += 1
+         33 
+
+
+        \textasciitilde{}/.pyenv/versions/anaconda3-5.1.0/envs/marlo/lib/python3.6/site-packages/gym/envs/atari/atari\_env.py in step(self, a)
+         73             num\_steps = self.np\_random.randint(self.frameskip[0], self.frameskip[1])
+         74         for \_ in range(num\_steps):
+    ---> 75             reward += self.ale.act(action)
+         76         ob = self.\_get\_obs()
+         77 
+
+
+        \textasciitilde{}/.pyenv/versions/anaconda3-5.1.0/envs/marlo/lib/python3.6/site-packages/atari\_py/ale\_python\_interface.py in act(self, action)
+        134 
+        135     def act(self, action):
+    --> 136         return ale\_lib.act(self.obj, int(action))
+        137 
+        138     def game\_over(self):
+
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mean\PYZus{}rw\PYZus{}history}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}218}]:} [<matplotlib.lines.Line2D at 0x7fcf7f537c50>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{mean\PYZus{}rw\PYZus{}history}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{10.}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{That}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s good enough for tutorial.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AssertionError                            Traceback (most recent call last)
+
+        <ipython-input-48-199bde077f03> in <module>
+    ----> 1 assert np.mean(mean\_rw\_history[-10:]) > 10.
+          2 print("That's good enough for tutorial.")
+
+
+        AssertionError: 
+
+    \end{Verbatim}
+
+    \_\_ How to interpret plots: \_\_
+
+This aint no supervised learning so don't expect anything to improve
+monotonously. * \_\_ TD loss \_\_ is the MSE between agent's current
+Q-values and target Q-values. It may slowly increase or decrease, it's
+ok. The ``not ok'' behavior includes going NaN or stayng at exactly zero
+before agent has perfect performance. * \_\_ mean reward\_\_ is the
+expected sum of r(s,a) agent gets over the full game session. It will
+oscillate, but on average it should get higher over time (after a few
+thousand iterations\ldots{}). * In basic q-learning implementation it
+takes 5-10k steps to ``warm up'' agent before it starts to get better. *
+\_\_ buffer size\_\_ - this one is simple. It should go up and cap at
+max size. * \_\_ epsilon\_\_ - agent's willingness to explore. If you
+see that agent's already at 0.01 epsilon before it's average reward is
+above 0 - \_\_ it means you need to increase epsilon\_\_. Set it back to
+some 0.2 - 0.5 and decrease the pace at which it goes down. * Also
+please ignore first 100-200 steps of each plot - they're just
+oscillations because of the way moving average works.
+
+At first your agent will lose quickly. Then it will learn to suck less
+and at least hit the ball a few times before it loses. Finally it will
+learn to actually score points.
+
+\textbf{Training will take time.} A lot of it actually. An optimistic
+estimate is to say it's gonna start winning (average reward
+\textgreater{} 10) after 10k steps.
+
+But hey, look on the bright side of things:
+
+\begin{figure}
+\centering
+\includegraphics{https://s17.postimg.org/hy2v7r8hr/my_bot_is_training.png}
+\caption{img}
+\end{figure}
+
+    \hypertarget{video}{%
+\subsubsection{Video}\label{video}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{get\PYZus{}qvalues}\PY{p}{(}\PY{n}{debug\PYZus{}obs}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}259}]:} tensor([[0.4501, 0.4503, 0.4492, 0.4518],
+                  [0.4501, 0.4503, 0.4492, 0.4518],
+                  [0.4501, 0.4503, 0.4492, 0.4518]], grad\_fn=<ThAddmmBackward>)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{policy\PYZus{}agent}\PY{o}{.}\PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Don\PYZsq{}t forget to reset epsilon back to previous value if you want to go on training}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}284}]:} \PY{k}{def} \PY{n+nf}{evaluate}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{n\PYZus{}games}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{greedy}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{t\PYZus{}max}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Plays n\PYZus{}games full games. If greedy, picks actions as argmax(qvalues). Returns mean reward. \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{rewards} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}games}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{s} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{reward} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{t\PYZus{}max}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{s} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                      \PY{n}{qvalues} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{get\PYZus{}qvalues}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+                      \PY{n}{action} \PY{o}{=} \PY{n}{qvalues}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{dim}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{if} \PY{n}{greedy} \PY{k}{else} \PY{n}{agent}\PY{o}{.}\PY{n}{sample\PYZus{}actions}\PY{p}{(}\PY{n}{qvalues}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                      \PY{n}{s}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{done}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                      \PY{n}{reward} \PY{o}{+}\PY{o}{=} \PY{n}{r}
+                      \PY{k}{if} \PY{n}{done}\PY{p}{:} \PY{k}{break}
+                          
+                  \PY{n}{rewards}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{reward}\PY{p}{)}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{rewards}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}285}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}env}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BreakoutDeterministic\PYZhy{}v4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{env} \PY{o}{=} \PY{n}{PreprocessAtari}\PY{p}{(}\PY{n}{env}\PY{p}{)}
+              \PY{n}{env} \PY{o}{=} \PY{n}{FrameBuffer}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{n\PYZus{}frames}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{dim\PYZus{}order}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pytorch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{return} \PY{n}{env}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}286}]:} \PY{c+c1}{\PYZsh{}record sessions}
+          \PY{k+kn}{import} \PY{n+nn}{gym}\PY{n+nn}{.}\PY{n+nn}{wrappers}
+          \PY{n}{env\PYZus{}monitor} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{wrappers}\PY{o}{.}\PY{n}{Monitor}\PY{p}{(}\PY{n}{make\PYZus{}env}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{directory}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{videos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{force}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sessions} \PY{o}{=} \PY{p}{[}\PY{n}{evaluate}\PY{p}{(}\PY{n}{env\PYZus{}monitor}\PY{p}{,} \PY{n}{policy\PYZus{}agent}\PY{p}{,} \PY{n}{n\PYZus{}games}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+          \PY{n}{env\PYZus{}monitor}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-yellow}{WARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.}
+\textcolor{ansi-yellow}{WARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.}
+start
+start
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}287}]:} \PY{c+c1}{\PYZsh{}show video}
+          \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          
+          \PY{n}{video\PYZus{}names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{s}\PY{p}{:}\PY{n}{s}\PY{o}{.}\PY{n}{endswith}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.mp4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./videos/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{HTML}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZlt{}video width=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{640}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ height=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{480}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ controls\PYZgt{}}
+          \PY{l+s+s2}{  \PYZlt{}source src=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ type=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{video/mp4}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}
+          \PY{l+s+s2}{\PYZlt{}/video\PYZgt{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./videos/}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{video\PYZus{}names}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}this may or may not be \PYZus{}last\PYZus{} video. Try other indices}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}287}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{more}{%
+\subsection{More}\label{more}}
+
+If you want to play with DQN a bit more, here's a list of things you can
+try with it:
+
+\hypertarget{easy}{%
+\subsubsection{Easy:}\label{easy}}
+
+\begin{itemize}
+\tightlist
+\item
+  Implementing \textbf{double q-learning} shouldn't be a problem if
+  you've already have target networks in place.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    You will probably need \texttt{tf.argmax} to select best actions
+  \item
+    Here's an original \href{https://arxiv.org/abs/1509.06461}{article}
+  \end{itemize}
+\item
+  \textbf{Dueling} architecture is also quite straightforward if you
+  have standard DQN.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    You will need to change network architecture, namely the q-values
+    layer
+  \item
+    It must now contain two heads: V(s) and A(s,a), both dense layers
+  \item
+    You should then add them up via elemwise sum layer.
+  \item
+    Here's an \href{https://arxiv.org/pdf/1511.06581.pdf}{article}
+  \end{itemize}
+\end{itemize}
+
+    \hypertarget{hard-prioritized-experience-replay}{%
+\subsubsection{Hard: Prioritized experience
+replay}\label{hard-prioritized-experience-replay}}
+
+In this section, you're invited to implement prioritized experience
+replay
+
+\begin{itemize}
+\tightlist
+\item
+  You will probably need to provide a custom data structure
+\item
+  Once pool.update is called, collect the
+  pool.experience\_replay.observations, actions, rewards and is\_alive
+  and store them in your data structure
+\item
+  You can now sample such transitions in proportion to the error (see
+  \href{https://arxiv.org/abs/1511.05952}{article}) for training.
+\end{itemize}
+
+It's probably more convenient to explicitly declare inputs for ``sample
+observations'', ``sample actions'' and so on to plug them into
+q-learning.
+
+Prioritized (and even normal) experience replay should greatly reduce
+amount of game sessions you need to play in order to achieve good
+performance.
+
+While it's effect on runtime is limited for atari, more complicated envs
+(further in the course) will certainly benefit for it.
+
+There is even more out there - see this
+\href{https://arxiv.org/abs/1710.02298}{overview article}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{k+kn}{from} \PY{n+nn}{submit} \PY{k}{import} \PY{n}{submit\PYZus{}breakout}
+          \PY{n}{env} \PY{o}{=} \PY{n}{make\PYZus{}env}\PY{p}{(}\PY{p}{)}
+          \PY{n}{submit\PYZus{}breakout}\PY{p}{(}\PY{n}{policy\PYZus{}agent}\PY{p}{,} \PY{n}{env}\PY{p}{,} \PY{n}{evaluate}\PY{p}{,} \PY{o}{\PYZlt{}}\PY{n}{EMAIL}\PY{o}{\PYZgt{}}\PY{p}{,} \PY{o}{\PYZlt{}}\PY{n}{TOKEN}\PY{o}{\PYZgt{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-251-fb2ef93e0cf9>", line 3
+        submit\_breakout(agent, env, evaluate, <EMAIL>, <TOKEN>)
+                                              \^{}
+    SyntaxError: invalid syntax
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
